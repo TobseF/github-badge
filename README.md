@@ -7,21 +7,21 @@ The counter gets automatically updated by a [GitHub CI workflow](https://resourc
 ## ⭐ Features
  ⭐ Customizable  
  ⭐ SVG graphic  
- ⭐ Always up to date  
+ ⭐ Always up-to-date  
  ⭐ Image hosted by GitHub  
- ⭐ Git based stats history  
+ ⭐ Git-based stats history  
  ⭐ No API key is needed
 
 ## 📖 How it works
 This `update-badge-script.js` [Node.js](https://nodejs.org/en/) script reads 
-the [Stack Overflow user API](https://api.stackexchange.com/docs/types/user)
+the [GitHub user API](https://docs.github.com/en/rest/users/users)
 and writes the badge stats into an SVG template file (`github-repo-count-template.svg`).
 If the generated badge is newer then the file in the repository, it
 commits the new generated `github-repo-count.svg` to this GIT repository.
 The pipeline gets triggered by a cron job, which automatically updates the image every midnight.
 
 You can link the generated file by:  
-https://raw.githubusercontent.com/{userName}/github-badge/master/github-repo-count.svg
+https://raw.githubusercontent.com/$userName$/github-badge/master/github-repo-count.svg (replace `$userName$`)
 
 ## 🛠 Config
 The script can be configured to generate a badge for any user:
@@ -34,4 +34,4 @@ The script can be configured to generate a badge for any user:
    Uses the [cron-job syntax](https://crontab.guru/every-midnight).
 
 ## 📑 TODO
-* Implement pagination for the repo api. Without the maxim repo count is 100. 
+* Implement pagination for the repo api. Without the maximal repo count is 100. 
