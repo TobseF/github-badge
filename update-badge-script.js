@@ -1,13 +1,13 @@
 import fetch from 'node-fetch';
 import fs from 'fs';
 
-let userName = "tobsef"
+let userName = "tobsef";
 
-let pipelineRun = true
-let templateFile = 'github-repo-count-template.svg'
-let outputFile = 'github-repo-count.svg'
-let apiURL = "https://api.github.com/users/"
-let repoCountUrl = apiURL + userName + "/repos?per_page=100"
+let pipelineRun = true; // Set to false for local debugging
+let templateFile = 'github-repo-count-template.svg';
+let outputFile = 'github-repo-count.svg';
+let apiURL = "https://api.github.com/users/";
+let repoCountUrl = apiURL + userName;
 
 fetch(repoCountUrl, {
     method: 'get',
@@ -15,21 +15,19 @@ fetch(repoCountUrl, {
 })
     .then((res) => res.json())
     .then((json) => {
-        updateBadge(json)
+        updateBadge(json.public_repos);
     });
 
-function updateBadge(json) {
+function updateBadge(repoCount) {
     try {
-        let repos = json.map(parseJson)
-        let repoCount = repos.length
-        console.log("Received " + repoCount + " repos from GitHub API");
+        console.log("Received count of " + repoCount + " repos from GitHub API");
         let templateData = readFile(templateFile);
         let compiledBadge = compileTemplate(templateData, repoCount);
         let oldBadge = readFile(outputFile);
 
         if (oldBadge === compiledBadge) {
             console.log("Badge data has not changed. Skipping commit.");
-            setUpdateBannerEnv("false")
+            setUpdateBannerEnv("false");
         } else {
             console.log("Updating badge ...");
             fs.writeFileSync("./" + outputFile, compiledBadge);
@@ -42,7 +40,7 @@ function updateBadge(json) {
 }
 
 function setUpdateBannerEnv(value) {
-    setEnv("update-badge", value)
+    setEnv("update-badge", value);
 }
 
 function setEnv(key, value) {
@@ -53,21 +51,24 @@ function setEnv(key, value) {
     }
 }
 
-function parseJson(json) {
-    return new RepoInfo(json.name, json.id)
-}
-
-class RepoInfo {
-    constructor(name, id) {
-        this.name = name;
-        this.id = id;
-    }
-}
-
 function readFile(file) {
-    return fs.readFileSync("./" + file, 'utf8')
+    return fs.readFileSync("./" + file, 'utf8');
 }
 
 function compileTemplate(template, repoCount) {
-    return template.replaceAll("${repoCount}", repoCount)
+    let compiled = setTemplateVar(template, "repoCount", repoCount);
+    return setTemplateVar(compiled, "length", calculateSize(repoCount));
+}
+
+function setTemplateVar(template, name, value) {
+    return template.replaceAll("${" + name + "}", value);
+}
+
+function calculateSize(number) {
+    let letterSize = 80;
+    return size(number) * letterSize;
+}
+
+function size(number) {
+    return Math.abs(number).toString().length;
 }

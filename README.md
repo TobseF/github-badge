@@ -33,5 +33,3 @@ The script can be configured to generate a badge for any user:
    `- cron: '0 0 * * *'` (every day at midnight).
    Uses the [cron-job syntax](https://crontab.guru/every-midnight).
 
-## 📑 TODO
-* Implement pagination for the repo api. Without the maximal repo count is 100. 
