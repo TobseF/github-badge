@@ -24,7 +24,7 @@
   "lock": false,
   "nodeModulesDir": "auto",
   "tasks": {
-    "start": "deno run --allow-net --allow-env --allow-write update-badge-script.ts"
+    "start": "deno run --allow-env --allow-read --allow-net --allow-write update-badge-script.ts"
   },
   "exclude": [
     "dist/"
