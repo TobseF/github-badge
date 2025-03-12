@@ -16,7 +16,6 @@ jobs:
       - uses: denoland/setup-deno@v1
         with:
           deno-version: v2.x
-      - run: npm ci
       - id: update-badge
         run: deno run --allow-env --allow-write ./update-badge-script.ts
       - name: Commit files
