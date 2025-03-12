@@ -1,5 +1,5 @@
 # 🎫 GitHub Repository Counter Badge
-This is a GitHub-Badge SVG graphic which shows the number of repository of a user.
+This is a GitHub-Badge SVG graphic which shows the number of repositories from a user.
 The counter gets automatically updated by a [GitHub CI workflow](https://resources.github.com/ci-cd/).
 
 ![github-repo-count](https://raw.githubusercontent.com/TobseF/github-badge/master/github-repo-count.svg)
@@ -13,7 +13,7 @@ The counter gets automatically updated by a [GitHub CI workflow](https://resourc
  ⭐ No API key is needed
 
 ## 📖 How it works
-This `update-badge-script.js` [Node.js](https://nodejs.org/en/) script reads 
+This `update-badge-script.ts` [Deno](https://deno.com) TypeScript reads 
 the [GitHub user API](https://docs.github.com/en/rest/users/users)
 and writes the badge stats into an SVG template file (`github-repo-count-template.svg`).
 If the generated badge is newer then the file in the repository, it

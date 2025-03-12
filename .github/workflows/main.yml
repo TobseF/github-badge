@@ -13,12 +13,12 @@ jobs:
         with:
           persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal access token.
           fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
-      - uses: actions/setup-node@v3
+      - uses: denoland/setup-deno@v1
         with:
-          node-version: 15
+          deno-version: v2.x
       - run: npm ci
       - id: update-badge
-        run: node ./update-badge-script.js
+        run: deno run --allow-env --allow-write ./update-badge-script.ts
       - name: Commit files
         if: env.update-badge == 'true'
         run: |
