@@ -17,7 +17,7 @@ jobs:
         with:
           deno-version: v2.x
       - id: update-badge
-        run: deno run --allow-env --allow-write ./update-badge-script.ts
+        run: deno run --allow-env --allow-read --allow-net --allow-write ./update-badge-script.ts
       - name: Commit files
         if: env.update-badge == 'true'
         run: |
